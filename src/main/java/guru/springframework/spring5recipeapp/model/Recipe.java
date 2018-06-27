@@ -1,6 +1,7 @@
 package guru.springframework.spring5recipeapp.model;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Recipe {
@@ -15,8 +16,18 @@ public class Recipe {
     private String source;
     private String url;
     private String directions;
-    //todo
-    //private Dificulty dificulty;
+
+    @Enumerated(value = EnumType.STRING)
+    private Difficulty dificulty;
+
+    @ManyToMany
+    @JoinTable(name = "recipe_category",
+            joinColumns = @JoinColumn(name = "recipe_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id"))
+    private Set<Category> categories;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
+    private Set<Ingredient> ingredients;
 
     @Lob
     private Byte[] image;
@@ -95,4 +106,29 @@ public class Recipe {
     public void setNotes(Notes notes) {
         this.notes = notes;
     }
+
+    public Difficulty getDificulty() {
+        return dificulty;
+    }
+
+    public void setDificulty(Difficulty dificulty) {
+        this.dificulty = dificulty;
+    }
+
+    public Set<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(Set<Category> categories) {
+        this.categories = categories;
+    }
+
+    public Set<Ingredient> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(Set<Ingredient> ingredients) {
+        this.ingredients = ingredients;
+    }
+
 }
