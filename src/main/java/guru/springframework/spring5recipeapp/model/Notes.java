@@ -1,13 +1,14 @@
 package guru.springframework.spring5recipeapp.model;
 
-import jdk.nashorn.internal.objects.annotations.Getter;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 
 
 @Entity
 @Data
+@EqualsAndHashCode(exclude = {"recipe"})
 public class Notes {
 
     @Id
@@ -21,3 +22,4 @@ public class Notes {
     private Recipe recipe;
 
 }
+
