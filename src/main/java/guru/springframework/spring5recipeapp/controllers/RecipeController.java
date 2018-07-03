@@ -1,6 +1,5 @@
 package guru.springframework.spring5recipeapp.controllers;
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import guru.springframework.spring5recipeapp.service.RecipeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,7 +20,7 @@ public class RecipeController {
     public String showById(Model model, @PathVariable String id) {
 
         model.addAttribute("recipe", recipeService.findById(Long.valueOf(id)));
-        return "/recipe/show";
+        return "recipe/show";
     }
 
 }

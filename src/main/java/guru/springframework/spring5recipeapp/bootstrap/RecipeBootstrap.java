@@ -200,29 +200,8 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
                 "\n" +
                 "\n" +
                 "Read more: http://www.simplyrecipes.com/recipes/spicy_grilled_chicken_tacos/#ixzz4jvu7Q0MJ");
-        tacoNotes.setRecipe(tacosRecipe);
+        tacosRecipe.setNotes(tacoNotes);
         //tacosRecipe.setNotes(tacoNotes);
-
-
-//        tacosRecipe.().add(new Ingredient("Ancho Chili Powder", new BigDecimal(2), tablespoon, tacosRecipe));
-//        tacosRecipe.().add(new Ingredient("Dried Oregano", new BigDecimal(1), teaspoon, tacosRecipe));
-//        tacosRecipe.().add(new Ingredient("Dried Cumin", new BigDecimal(1), teaspoon, tacosRecipe));
-//        tacosRecipe.().add(new Ingredient("Sugar", new BigDecimal(1), teaspoon, tacosRecipe));
-//        tacosRecipe.().add(new Ingredient("Salt", new BigDecimal(".5"), teaspoon, tacosRecipe));
-//        tacosRecipe.().add(new Ingredient("Clove of Garlic, Choppedr", new BigDecimal(1), each, tacosRecipe));
-//        tacosRecipe.().add(new Ingredient("finely grated orange zestr", new BigDecimal(1), tablespoon, tacosRecipe));
-//        tacosRecipe.().add(new Ingredient("fresh-squeezed orange juice", new BigDecimal(3), tablespoon, tacosRecipe));
-//        tacosRecipe.().add(new Ingredient("Olive Oil", new BigDecimal(2), tablespoon, tacosRecipe));
-//        tacosRecipe.().add(new Ingredient("boneless chicken thighs", new BigDecimal(4), tablespoon, tacosRecipe));
-//        tacosRecipe.().add(new Ingredient("small corn tortillasr", new BigDecimal(8), each, tacosRecipe));
-//        tacosRecipe.().add(new Ingredient("packed baby arugula", new BigDecimal(3), cup, tacosRecipe));
-//        tacosRecipe.().add(new Ingredient("medium ripe avocados, slic", new BigDecimal(2), each, tacosRecipe));
-//        tacosRecipe.().add(new Ingredient("radishes, thinly sliced", new BigDecimal(4), each, tacosRecipe));
-//        tacosRecipe.().add(new Ingredient("cherry tomatoes, halved", new BigDecimal(".5"), pint, tacosRecipe));
-//        tacosRecipe.().add(new Ingredient("red onion, thinly sliced", new BigDecimal(".25"), each, tacosRecipe));
-//        tacosRecipe.().add(new Ingredient("Roughly chopped cilantro", new BigDecimal(4), each, tacosRecipe));
-//        tacosRecipe.().add(new Ingredient("cup sour cream thinned with 1/4 cup milk", new BigDecimal(4), cup, tacosRecipe));
-//        tacosRecipe.().add(new Ingredient("lime, cut into wedges", new BigDecimal(4), each, tacosRecipe));
 
 
         tacosRecipe.addIngredient(new Ingredient("Ancho Chili Powder", new BigDecimal(2), tablespoon));
