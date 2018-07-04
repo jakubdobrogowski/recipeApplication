@@ -52,11 +52,11 @@ public class IngredientCommandToIngredientTest {
 
         //then
         assertNotNull(ingredient);
-//        assertNotNull(ingredient.getUom()); //todo
+        assertNotNull(ingredient.getUom());
         assertEquals(ID_VALUE, ingredient.getId());
         assertEquals(AMOUNT, ingredient.getAmount());
         assertEquals(DESCRIPTION, ingredient.getDescription());
-//        assertEquals(UOM_ID, ingredient.getUom().getId()); //todo
+        assertEquals(UOM_ID, ingredient.getUom().getId());
     }
 
     @Test
