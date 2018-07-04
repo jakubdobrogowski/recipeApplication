@@ -4,6 +4,7 @@ import guru.springframework.spring5recipeapp.model.*;
 import guru.springframework.spring5recipeapp.repositories.CategoryRepository;
 import guru.springframework.spring5recipeapp.repositories.RecipeRepository;
 import guru.springframework.spring5recipeapp.repositories.UnitOfMesureRepository;
+import guru.springframework.spring5recipeapp.model.UniteOfMesure;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
