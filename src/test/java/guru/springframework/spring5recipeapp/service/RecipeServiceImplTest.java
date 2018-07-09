@@ -67,4 +67,6 @@ public class RecipeServiceImplTest {
         verify(recipeRepository, times(0)).findAll();
         verify(recipeRepository, times(1)).findById(anyLong());
     }
+
+
 }

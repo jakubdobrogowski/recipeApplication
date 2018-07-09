@@ -105,4 +105,10 @@ public class RecipeControllerTest {
                 .andExpect(view().name("recipe/recipeform"))
                 .andExpect(model().attributeExists("recipe"));
     }
+
+    @Test
+    public void testDeletedAction() {
+
+
+    }
 }
