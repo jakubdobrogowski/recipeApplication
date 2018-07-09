@@ -14,4 +14,6 @@ public interface RecipeService {
 
     //save entity coming back from web tire
     RecipeCommand saveRecipeCommand(RecipeCommand recipeCommand);
+
+    RecipeCommand findCommandById(Long id);
 }

@@ -19,11 +19,14 @@
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
             <div class="pannel-group">
+
                 <div class="panel panel-primary">
+
                     <div class="panel-heading">
                         <h1 class="panel-title" th:text="${recipe.description}">Recipe Description Here!</h1>
                     </div>
                     <div class="panel-body">
+
                         <div class="row">
                             <div class="col-md-3">
                                 <h5>Categories:</h5>
@@ -93,9 +96,9 @@
                                     <li th:remove="all">1 Cup of milk</li>
                                     <li th:remove="all"> Teaspoon of chocolate</li>
                                     <li th:each="ingrdient : ${recipe.ingredients}"
-                                        th:text="${(ingrdient.amount) +
-                                        ' ' + (ingrdient.uom) +
-                                        ' - ' + (ingrdient.description)}">1
+                                        th:text="${(ingrdient.getAmount()) +
+                                        ' ' + (ingrdient.uom.getUom()) +
+                                        ' - ' + (ingrdient.getDescription())}">1
                                         Teaspoon of Sugar
                                     </li>
                                 </ul>
