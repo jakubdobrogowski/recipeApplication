@@ -9,4 +9,5 @@ public interface UnitOfMesureRepository extends CrudRepository<UniteOfMesure, Lo
 
     Optional<UniteOfMesure> findByUom(String description);
 
+
 }
