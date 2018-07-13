@@ -25,7 +25,7 @@ public class IngredientServiceImpl implements IngredientService {
     private UnitOfMesureRepository unitOfMesureRepository;
 
     public IngredientServiceImpl(IngredientToIngredientCommand ingredientToIngredientCommand, IngredientCommandToIngredient ingredientCommandToIngredient,
-                                  RecipeRepository recipeRepository, UnitOfMesureRepository unitOfMesureRepository) {
+                                 RecipeRepository recipeRepository, UnitOfMesureRepository unitOfMesureRepository) {
         this.ingredientToIngredientCommand = ingredientToIngredientCommand;
         this.ingredientCommandToIngredient = ingredientCommandToIngredient;
         this.recipeRepository = recipeRepository;
@@ -64,33 +64,51 @@ public class IngredientServiceImpl implements IngredientService {
     @Override
     public IngredientCommand saveIngredientCommand(IngredientCommand ingredientCommand) {
 
-        Optional<Recipe> recipeOptional = recipeRepository.findById(ingredientCommand.getId());
+        Optional<Recipe> recipeOptional = recipeRepository.findById(ingredientCommand.getRecipeId());
         if (!recipeOptional.isPresent()) {
 
             //todo toss error if not found!
             log.error("Recipe Not Found For Id: " + ingredientCommand.getId());
             return new IngredientCommand();
-        }
-        Recipe recipe = recipeOptional.get();
-
-        //poszukaj czy mamy taki składnik już
-        Optional<Ingredient> ingredientOptional = findIngredient(ingredientCommand, recipe);
-
-        if (ingredientOptional.isPresent()) {
-            updateIngredient(ingredientCommand, ingredientOptional); //jak mamy to uaktualnij
         } else {
-            addNewIngredient(ingredientCommand, recipe); //jak nie to stówrz taki
+            Recipe recipe = recipeOptional.get();
+
+            Optional<Ingredient> ingredientOptional = findIngredient(ingredientCommand, recipe);  //poszukaj czy mamy taki składnik już
+
+            if (ingredientOptional.isPresent()) {
+                updateIngredient(ingredientCommand, ingredientOptional); //jak mamy to uaktualnij
+            } else {
+                addNewIngredient(ingredientCommand, recipe); //jak nie to stówrz taki
+            }
+
+            Recipe savedRecipe = recipeRepository.save(recipe); //zapisz
+
+            Optional<Ingredient> savedIngrdientOptional = checkIfThereIsDuplicateForExisting(ingredientCommand, savedRecipe);  //sprawdz czy się zapiało DLA EDYTOWANEGO
+
+            if (!savedIngrdientOptional.isPresent()) {
+
+                savedIngrdientOptional = checkIdThereIsDuplicateForNewIngredient(ingredientCommand, savedRecipe); //sprawdz czy się zapiało DLA NOWEGO - BO BOWY NIE MA ID
+            }
+            return ingredientToIngredientCommand.convert(savedIngrdientOptional.get());
         }
 
-        Recipe savedRecipe = recipeRepository.save(recipe); //zapisz
+    }
 
-        return savedRecipe.getIngredients()  //sprawdz czy się zapiało
+    private Optional<Ingredient> checkIfThereIsDuplicateForExisting(IngredientCommand ingredientCommand, Recipe savedRecipe) {
+        return savedRecipe.getIngredients()
                 .stream()
                 .filter(ingredient -> ingredient.getId().equals(ingredientCommand.getId()))
-                .map(ingredient -> ingredientToIngredientCommand.convert(ingredient))
-                .findFirst()
-                .get();
+                .findFirst();
+    }
 
+    private Optional<Ingredient> checkIdThereIsDuplicateForNewIngredient(IngredientCommand ingredientCommand, Recipe savedRecipe) {
+        Optional<Ingredient> savedIngrdientOptional;
+        savedIngrdientOptional = savedRecipe.getIngredients().stream()
+                .filter(recipeIngredients -> recipeIngredients.getDescription().equals(ingredientCommand.getDescription()))
+                .filter(recipeIngredients -> recipeIngredients.getAmount().equals(ingredientCommand.getAmount()))
+                .filter(recipeIngredients -> recipeIngredients.getUom().getId().equals(ingredientCommand.getUom().getId()))
+                .findFirst();
+        return savedIngrdientOptional;
     }
 
     private void addNewIngredient(IngredientCommand ingredientCommand, Recipe recipe) {

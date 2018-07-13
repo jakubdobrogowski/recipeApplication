@@ -1,6 +1,8 @@
 package guru.springframework.spring5recipeapp.controllers;
 
 import guru.springframework.spring5recipeapp.commands.IngredientCommand;
+import guru.springframework.spring5recipeapp.commands.RecipeCommand;
+import guru.springframework.spring5recipeapp.commands.UnitOfMesureCommand;
 import guru.springframework.spring5recipeapp.service.IngredientService;
 import guru.springframework.spring5recipeapp.service.RecipeService;
 import guru.springframework.spring5recipeapp.service.UnitOfMeasureService;
@@ -40,6 +42,7 @@ public class IngredientController {
         return "recipe/ingredient/show";
     }
 
+
     @GetMapping
     @RequestMapping("/recipe/{recipeId}/ingredient/{id}/update")
     public String updateRecipeIngredient(@PathVariable String recipeId,
@@ -52,8 +55,30 @@ public class IngredientController {
         return "recipe/ingredient/ingredientform";
     }
 
-    @PostMapping
-    @RequestMapping("/recipe/{recipeId}/ingredient")
+
+    @GetMapping
+    @RequestMapping("/recipe/{recipeId}/ingredient/new")
+    public String newInfredient(@PathVariable String recipeId, Model model) {
+
+        //make sure we have good id value
+        RecipeCommand commandById = recipeService.findCommandById(Long.valueOf(recipeId)); //todo raise exception if null
+
+        model.addAttribute("ingredient", getBrandNewIngredientCommand(recipeId));
+
+        model.addAttribute("uomList", unitOfMeasureService.getListAllUom());
+
+        return "recipe/ingredient/ingredientform";
+    }
+    private IngredientCommand getBrandNewIngredientCommand(@PathVariable String recipeId) {
+
+        IngredientCommand ingredientCommand = new IngredientCommand();
+        ingredientCommand.setRecipeId(Long.valueOf(recipeId));
+        //init uom
+        ingredientCommand.setUom(new UnitOfMesureCommand());
+        return ingredientCommand;
+    }
+
+    @PostMapping("/recipe/{recipeId}/ingredient")
     public String saveOrUpdate(@ModelAttribute IngredientCommand ingredientCommand) {
 
         IngredientCommand savedIngredientCommand = ingredientService.saveIngredientCommand(ingredientCommand);

@@ -13,7 +13,6 @@ import static java.util.stream.Collectors.toSet;
 @Service
 public class UnitOfMeasureServiceImpl implements UnitOfMeasureService {
 
-    //muszę dostać liste składników
 
     UnitOfMesureRepository unitOfMesureRepository;
     UnitOfMeasureToUnitOfMeasureCommand unitOfMeasureToUnitOfMeasureCommand;
