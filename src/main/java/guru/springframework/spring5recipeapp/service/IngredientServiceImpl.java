@@ -94,6 +94,34 @@ public class IngredientServiceImpl implements IngredientService {
 
     }
 
+    @Override
+    public void deleteIngredient(Long recipeId, Long id) {
+
+        Optional<Recipe> recipeOptional = recipeRepository.findById(recipeId);
+
+        if (!recipeOptional.isPresent()) {
+
+            log.debug("Recipe Not Found " + recipeId);
+            throw new RuntimeException("Recipe Not Found");
+        }
+        Recipe recipe = recipeOptional.get();
+        Optional<Ingredient> ingredientOptional = recipe.getIngredients()
+                .stream()
+                .filter(ingredient -> ingredient.getId().equals(id))
+                .findFirst();
+        if (!ingredientOptional.isPresent()){
+
+            log.debug("Ingredient Not Found " + id);
+            throw new RuntimeException("Ingredient Not Found");
+        }
+        Ingredient ingredientToDelete = ingredientOptional.get();
+        ingredientToDelete.setRecipe(null); //wazne
+        recipe.getIngredients().remove(ingredientToDelete);
+        recipeRepository.save(recipe);
+    }
+
+
+
     private Optional<Ingredient> checkIfThereIsDuplicateForExisting(IngredientCommand ingredientCommand, Recipe savedRecipe) {
         return savedRecipe.getIngredients()
                 .stream()

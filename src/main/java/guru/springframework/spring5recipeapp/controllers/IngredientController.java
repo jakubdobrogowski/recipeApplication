@@ -69,6 +69,7 @@ public class IngredientController {
 
         return "recipe/ingredient/ingredientform";
     }
+
     private IngredientCommand getBrandNewIngredientCommand(@PathVariable String recipeId) {
 
         IngredientCommand ingredientCommand = new IngredientCommand();
@@ -76,6 +77,15 @@ public class IngredientController {
         //init uom
         ingredientCommand.setUom(new UnitOfMesureCommand());
         return ingredientCommand;
+    }
+
+    @GetMapping
+    @RequestMapping("/recipe/{recipeId}/ingredient/{id}/delete")
+    public String deleteIngredient(@PathVariable String recipeId, @PathVariable String id) {
+
+        ingredientService.deleteIngredient(Long.valueOf(recipeId), Long.valueOf(id));
+
+        return "redirect:/recipe/" + recipeId + "/ingredients";
     }
 
     @PostMapping("/recipe/{recipeId}/ingredient")

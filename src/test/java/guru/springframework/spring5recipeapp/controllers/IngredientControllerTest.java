@@ -2,7 +2,6 @@ package guru.springframework.spring5recipeapp.controllers;
 
 import guru.springframework.spring5recipeapp.commands.IngredientCommand;
 import guru.springframework.spring5recipeapp.commands.RecipeCommand;
-import guru.springframework.spring5recipeapp.model.Ingredient;
 import guru.springframework.spring5recipeapp.service.IngredientService;
 import guru.springframework.spring5recipeapp.service.RecipeService;
 import guru.springframework.spring5recipeapp.service.UnitOfMeasureService;
@@ -96,4 +95,12 @@ public class IngredientControllerTest {
                 .andExpect(model().attributeExists("uomList"));
     }
 
+    @Test
+    public void testDeletedById() throws Exception {
+
+        mockMvc.perform(get("/recipe/2/ingredient/1/delete"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/recipe/2/ingredients"));
+
+    }
 }

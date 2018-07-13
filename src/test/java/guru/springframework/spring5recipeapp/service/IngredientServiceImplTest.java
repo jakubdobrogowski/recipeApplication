@@ -110,4 +110,30 @@ public class IngredientServiceImplTest {
 //        assertEquals(Long.valueOf(4L), savedIngredientCommand.getId());
 //
 //    }
+
+
+    @Test
+    public void testDeleteIngredient() {
+
+        //given
+        Long idIngredientToDelited = 2L;
+        Long idRecipe = 2L;
+        Recipe recipe = new Recipe();
+        recipe.setId(idRecipe);
+        Ingredient ingredient = new Ingredient();
+        ingredient.setId(idIngredientToDelited);
+        ingredient.setRecipe(recipe);
+        recipe.addIngredient(ingredient);
+
+        when(recipeRepository.findById(idIngredientToDelited)).thenReturn(Optional.of(recipe));
+
+        //when
+        ingredientService.deleteIngredient(idRecipe, idIngredientToDelited);
+
+        //than
+        verify(recipeRepository, times(1)).findById(anyLong());
+        verify(recipeRepository, times(1)).save(any(Recipe.class));
+
+
+    }
 }
