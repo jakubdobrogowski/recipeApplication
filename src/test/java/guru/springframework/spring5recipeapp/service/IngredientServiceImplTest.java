@@ -78,10 +78,10 @@ public class IngredientServiceImplTest {
 
 
     //FIXME 13.07.18
-//
-//    @Test
-//    public void testSaveIngredientCommand() {
-//
+
+    @Test
+    public void testSaveIngredientCommand() {
+
 //        //given
 //        IngredientCommand ingredientCommand = new IngredientCommand();
 //        ingredientCommand.setRecipeId(4L);
@@ -108,8 +108,8 @@ public class IngredientServiceImplTest {
 //
 //        //than
 //        assertEquals(Long.valueOf(4L), savedIngredientCommand.getId());
-//
-//    }
+
+    }
 
 
     @Test

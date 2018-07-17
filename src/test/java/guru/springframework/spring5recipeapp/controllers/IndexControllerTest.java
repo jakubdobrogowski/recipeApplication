@@ -1,5 +1,6 @@
 package guru.springframework.spring5recipeapp.controllers;
 
+import guru.springframework.spring5recipeapp.model.Difficulty;
 import guru.springframework.spring5recipeapp.model.Recipe;
 import guru.springframework.spring5recipeapp.service.RecipeService;
 import org.junit.Before;
@@ -70,4 +71,6 @@ public class IndexControllerTest {
         assertEquals(2, argumentCaptor.getValue().size());
 
     }
+
+
 }
