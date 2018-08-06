@@ -1,8 +1,9 @@
-package guru.springframework.spring5recipeapp.service;
+package guru.springframework.spring5recipeapp.service.implementations;
 
 import guru.springframework.spring5recipeapp.commands.UnitOfMesureCommand;
 import guru.springframework.spring5recipeapp.converters.UnitOfMeasureToUnitOfMeasureCommand;
 import guru.springframework.spring5recipeapp.repositories.UnitOfMesureRepository;
+import guru.springframework.spring5recipeapp.service.interfaces.UnitOfMeasureService;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;

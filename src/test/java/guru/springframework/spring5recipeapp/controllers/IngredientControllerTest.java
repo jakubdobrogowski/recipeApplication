@@ -2,11 +2,9 @@ package guru.springframework.spring5recipeapp.controllers;
 
 import guru.springframework.spring5recipeapp.commands.IngredientCommand;
 import guru.springframework.spring5recipeapp.commands.RecipeCommand;
-import guru.springframework.spring5recipeapp.model.Ingredient;
-import guru.springframework.spring5recipeapp.model.Recipe;
-import guru.springframework.spring5recipeapp.service.IngredientService;
-import guru.springframework.spring5recipeapp.service.RecipeService;
-import guru.springframework.spring5recipeapp.service.UnitOfMeasureService;
+import guru.springframework.spring5recipeapp.service.interfaces.IngredientService;
+import guru.springframework.spring5recipeapp.service.interfaces.RecipeService;
+import guru.springframework.spring5recipeapp.service.interfaces.UnitOfMeasureService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;

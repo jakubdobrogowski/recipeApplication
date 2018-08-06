@@ -1,24 +1,22 @@
 package guru.springframework.spring5recipeapp.service;
 
 import guru.springframework.spring5recipeapp.commands.IngredientCommand;
-import guru.springframework.spring5recipeapp.commands.UnitOfMesureCommand;
 import guru.springframework.spring5recipeapp.converters.IngredientCommandToIngredient;
 import guru.springframework.spring5recipeapp.converters.IngredientToIngredientCommand;
 import guru.springframework.spring5recipeapp.converters.UnitOfMeasureCommandToUnitOfMeasure;
 import guru.springframework.spring5recipeapp.converters.UnitOfMeasureToUnitOfMeasureCommand;
 import guru.springframework.spring5recipeapp.model.Ingredient;
 import guru.springframework.spring5recipeapp.model.Recipe;
-import guru.springframework.spring5recipeapp.model.UniteOfMesure;
 import guru.springframework.spring5recipeapp.repositories.RecipeRepository;
 import guru.springframework.spring5recipeapp.repositories.UnitOfMesureRepository;
+import guru.springframework.spring5recipeapp.service.implementations.IngredientServiceImpl;
+import guru.springframework.spring5recipeapp.service.interfaces.IngredientService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.math.BigDecimal;
 import java.util.Optional;
-import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;

@@ -1,9 +1,9 @@
 package guru.springframework.spring5recipeapp.controllers;
 
 import guru.springframework.spring5recipeapp.commands.RecipeCommand;
-import guru.springframework.spring5recipeapp.exeptions.NotFoundException;
+import guru.springframework.spring5recipeapp.exceptions.NotFoundException;
 import guru.springframework.spring5recipeapp.model.Recipe;
-import guru.springframework.spring5recipeapp.service.RecipeServiceImpl;
+import guru.springframework.spring5recipeapp.service.implementations.RecipeServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -78,6 +78,22 @@ public class RecipeControllerTest {
     }
 
     @Test
+    public void testHandleNotFound() throws Exception {
+
+        //given
+        Recipe recipe = new Recipe();
+        recipe.setId(244L);
+
+        //when
+        when(recipeServiceImpl.findById(anyLong())).thenThrow(NotFoundException.class);
+
+        //then
+        mockMvc.perform(get("/recipe/244/show"))
+                .andExpect(view().name("404error"))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
     public void testNewRecipe() throws Exception {
 
         //given
@@ -139,4 +155,5 @@ public class RecipeControllerTest {
         verify(recipeServiceImpl, times(1)).deleteRecipe(anyLong());
 
     }
+
 }

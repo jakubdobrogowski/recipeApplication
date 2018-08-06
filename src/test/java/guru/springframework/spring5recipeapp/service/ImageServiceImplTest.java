@@ -3,6 +3,8 @@ package guru.springframework.spring5recipeapp.service;
 
 import guru.springframework.spring5recipeapp.model.Recipe;
 import guru.springframework.spring5recipeapp.repositories.RecipeRepository;
+import guru.springframework.spring5recipeapp.service.implementations.ImageServiceImpl;
+import guru.springframework.spring5recipeapp.service.interfaces.ImageService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;

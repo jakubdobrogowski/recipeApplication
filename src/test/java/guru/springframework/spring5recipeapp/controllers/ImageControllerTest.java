@@ -1,8 +1,8 @@
 package guru.springframework.spring5recipeapp.controllers;
 
 import guru.springframework.spring5recipeapp.commands.RecipeCommand;
-import guru.springframework.spring5recipeapp.service.ImageService;
-import guru.springframework.spring5recipeapp.service.RecipeService;
+import guru.springframework.spring5recipeapp.service.interfaces.ImageService;
+import guru.springframework.spring5recipeapp.service.interfaces.RecipeService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;

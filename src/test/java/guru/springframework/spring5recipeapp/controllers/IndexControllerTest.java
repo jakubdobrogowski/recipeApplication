@@ -1,7 +1,7 @@
 package guru.springframework.spring5recipeapp.controllers;
 
 import guru.springframework.spring5recipeapp.model.Recipe;
-import guru.springframework.spring5recipeapp.service.RecipeService;
+import guru.springframework.spring5recipeapp.service.interfaces.RecipeService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;

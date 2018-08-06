@@ -1,4 +1,4 @@
-package guru.springframework.spring5recipeapp.service;
+package guru.springframework.spring5recipeapp.service.interfaces;
 
 import guru.springframework.spring5recipeapp.commands.UnitOfMesureCommand;
 

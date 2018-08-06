@@ -1,4 +1,4 @@
-package guru.springframework.spring5recipeapp.service;
+package guru.springframework.spring5recipeapp.service.implementations;
 
 import guru.springframework.spring5recipeapp.commands.IngredientCommand;
 import guru.springframework.spring5recipeapp.converters.IngredientCommandToIngredient;
@@ -9,6 +9,7 @@ import guru.springframework.spring5recipeapp.model.Recipe;
 import guru.springframework.spring5recipeapp.model.UniteOfMesure;
 import guru.springframework.spring5recipeapp.repositories.RecipeRepository;
 import guru.springframework.spring5recipeapp.repositories.UnitOfMesureRepository;
+import guru.springframework.spring5recipeapp.service.interfaces.IngredientService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
