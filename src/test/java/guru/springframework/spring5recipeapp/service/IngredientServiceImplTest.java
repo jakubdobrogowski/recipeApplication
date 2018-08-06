@@ -77,37 +77,33 @@ public class IngredientServiceImplTest {
     }
 
 
-    //FIXME 13.07.18
 
     @Test
     public void testSaveIngredientCommand() {
 
-//        //given
-//        IngredientCommand ingredientCommand = new IngredientCommand();
-//        ingredientCommand.setRecipeId(4L);
-//        ingredientCommand.setUom(new UnitOfMesureCommand());
-//        ingredientCommand.setDescription("");
-//        ingredientCommand.setAmount(new BigDecimal("0.03"));
-//
-//        UniteOfMesure uniteOfMesure = new UniteOfMesure();
-//
-//        Recipe savedRecipe = new Recipe();
-//        savedRecipe.addIngredient(new Ingredient());
-//        savedRecipe.getIngredients()
-//                .stream()
-//                .forEach(ingredient -> ingredient.setId(4L));
-//
-//
-//        when(recipeRepository.findById(anyLong())).thenReturn(Optional.of(new Recipe()));
-//        when(unitOfMesureRepository.findById(anyLong())).thenReturn(Optional.of(uniteOfMesure));
-//        when(recipeRepository.save(any())).thenReturn(savedRecipe);
-//
-//
-//        //when
-//        IngredientCommand savedIngredientCommand = ingredientService.saveIngredientCommand(ingredientCommand);
-//
-//        //than
-//        assertEquals(Long.valueOf(4L), savedIngredientCommand.getId());
+        //given
+        IngredientCommand ingredientCommand = new IngredientCommand();
+        ingredientCommand.setId(3L);
+        ingredientCommand.setRecipeId(4666L);
+
+        Optional<Recipe> recipeOptional = Optional.of(new Recipe());
+
+
+        Recipe savedRecipe = new Recipe();
+        savedRecipe.addIngredient(new Ingredient());
+        savedRecipe.getIngredients().iterator().next().setId(3L);
+
+
+        when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
+        when(recipeRepository.save(any())).thenReturn(savedRecipe);
+
+
+        //when
+        IngredientCommand savedIngredientCommand = ingredientService.saveIngredientCommand(ingredientCommand);
+
+        //than
+        assertEquals(Long.valueOf(3L), savedIngredientCommand.getId());
+
 
     }
 

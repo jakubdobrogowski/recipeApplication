@@ -1,6 +1,7 @@
 package guru.springframework.spring5recipeapp.controllers;
 
 import guru.springframework.spring5recipeapp.commands.RecipeCommand;
+import guru.springframework.spring5recipeapp.exeptions.NotFoundException;
 import guru.springframework.spring5recipeapp.model.Recipe;
 import guru.springframework.spring5recipeapp.service.RecipeServiceImpl;
 import org.junit.Before;
@@ -14,6 +15,8 @@ import org.springframework.ui.Model;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -59,17 +62,32 @@ public class RecipeControllerTest {
     }
 
     @Test
-    public void testPostNewRecipeForm() throws Exception {
+    public void testGetByIdNotFound() throws Exception {
+
+        //given
+        Recipe recipe = new Recipe();
+        recipe.setId(2L);
+
+        //when
+        when(recipeServiceImpl.findById(anyLong())).thenThrow(NotFoundException.class);
+
+        //then
+        mockMvc.perform(get("/recipe/2/show"))
+                .andExpect(status().isNotFound());
+
+    }
+
+    @Test
+    public void testNewRecipe() throws Exception {
 
         //given
         RecipeCommand recipeCommand = new RecipeCommand();
 
+        //then
         mockMvc.perform(get("/recipe/new"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("recipe/recipeform"))
                 .andExpect(model().attributeExists("recipe"));
-
-
     }
 
     @Test
@@ -79,8 +97,10 @@ public class RecipeControllerTest {
         RecipeCommand recipeCommand = new RecipeCommand();
         recipeCommand.setId(2L);
 
+        //when
         when(recipeServiceImpl.saveRecipeCommand(any())).thenReturn(recipeCommand);
 
+        //then
         mockMvc.perform(post("/recipe")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .param("id", "")
@@ -95,11 +115,14 @@ public class RecipeControllerTest {
     @Test
     public void testRecipeUpdate() throws Exception {
 
+        //given
         RecipeCommand recipeCommand = new RecipeCommand();
         recipeCommand.setId(3L);
 
+        //when
         when(recipeServiceImpl.findCommandById(anyLong())).thenReturn(recipeCommand);
 
+        //then
         mockMvc.perform(get("/recipe/3/update"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("recipe/recipeform"))
@@ -107,8 +130,13 @@ public class RecipeControllerTest {
     }
 
     @Test
-    public void testDeletedAction() {
+    public void testDeletedAction() throws Exception {
 
+        mockMvc.perform(get("/recipe/1/delete"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/"));
+
+        verify(recipeServiceImpl, times(1)).deleteRecipe(anyLong());
 
     }
 }

@@ -25,7 +25,7 @@ public class UnitOfMesureRepositoryIT {
     }
 
     @Test
-    public void shouldReturnTeaspoonWhenFindByDescriptionIsCallWithTeaspoon() {
+    public void testFindByUom() {
 
         Optional<UniteOfMesure> teaspoon = unitOfMesureRepository.findByUom("Teaspoon");
         assertEquals("Teaspoon", teaspoon.get().getUom());
@@ -33,7 +33,7 @@ public class UnitOfMesureRepositoryIT {
 
 
     @Test
-    public void shouldReturnCupWhenFindByDescriptionIsCallWithCup() {
+    public void findByUomCup(){
 
         Optional<UniteOfMesure> cup = unitOfMesureRepository.findByUom("Cup");
         assertEquals("Cup", cup.get().getUom());

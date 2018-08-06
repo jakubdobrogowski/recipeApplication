@@ -2,6 +2,8 @@ package guru.springframework.spring5recipeapp.controllers;
 
 import guru.springframework.spring5recipeapp.commands.IngredientCommand;
 import guru.springframework.spring5recipeapp.commands.RecipeCommand;
+import guru.springframework.spring5recipeapp.model.Ingredient;
+import guru.springframework.spring5recipeapp.model.Recipe;
 import guru.springframework.spring5recipeapp.service.IngredientService;
 import guru.springframework.spring5recipeapp.service.RecipeService;
 import guru.springframework.spring5recipeapp.service.UnitOfMeasureService;
@@ -9,12 +11,17 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
@@ -68,6 +75,7 @@ public class IngredientControllerTest {
         ingredientCommand.setId(2L);
         ingredientCommand.setRecipeId(3L);
 
+        //when
         when(ingredientService.findIngredientCommandByRecipeIdAndId(anyLong(), anyLong())).thenReturn(ingredientCommand);
 
         //then
@@ -85,9 +93,10 @@ public class IngredientControllerTest {
         ingredientCommand.setId(2L);
         ingredientCommand.setRecipeId(3L);
 
+        //when
         when(ingredientService.findIngredientCommandByRecipeIdAndId(anyLong(), anyLong())).thenReturn(ingredientCommand);
 
-        //when
+        //then
         mockMvc.perform(get("/recipe/3/ingredient/2/update"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("recipe/ingredient/ingredientform"))
@@ -95,12 +104,55 @@ public class IngredientControllerTest {
                 .andExpect(model().attributeExists("uomList"));
     }
 
-    @Test
-    public void testDeletedById() throws Exception {
 
+    @Test
+    public void testNewIngredient() throws Exception {
+
+        //given
+        IngredientCommand ingredientCommand = new IngredientCommand();
+        long id = 4434L;
+        ingredientCommand.setId(id);
+
+        //then
+        mockMvc.perform(get("/recipe/4434/ingredient/new"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("recipe/ingredient/ingredientform"))
+                .andExpect(model().attributeExists("ingredient"))
+                .andExpect(model().attributeExists("uomList"));
+    }
+
+    @Test
+    public void testDeletedIngredientById() throws Exception {
+
+        //then
         mockMvc.perform(get("/recipe/2/ingredient/1/delete"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/recipe/2/ingredients"));
+
+        verify(ingredientService, times(1)).deleteIngredient(anyLong(), anyLong());
+
+
+    }
+
+    @Test
+    public void testSaveOrUpdate() throws Exception {
+
+        //given
+        IngredientCommand ingredientCommand = new IngredientCommand();
+        ingredientCommand.setId(22L);
+        ingredientCommand.setRecipeId(33L);
+
+        //when
+        when(ingredientService.saveIngredientCommand(any())).thenReturn(ingredientCommand);
+
+        //then
+        mockMvc.perform(post("/recipe/33/ingredient")
+        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+        .param("id", "")
+        .param("description", "someString")
+        ).andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/recipe/33/ingredient/22/show"));
+
 
     }
 }

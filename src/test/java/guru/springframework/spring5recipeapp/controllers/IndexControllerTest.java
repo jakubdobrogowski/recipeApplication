@@ -1,6 +1,5 @@
 package guru.springframework.spring5recipeapp.controllers;
 
-import guru.springframework.spring5recipeapp.model.Difficulty;
 import guru.springframework.spring5recipeapp.model.Recipe;
 import guru.springframework.spring5recipeapp.service.RecipeService;
 import org.junit.Before;
@@ -48,7 +47,7 @@ public class IndexControllerTest {
     }
 
     @Test
-    public void shouldReturnIndexWhenMethodIsCall() {
+    public void getIndexPage() {
 
         //given
         Set<Recipe> recipes = new HashSet<>();
@@ -58,7 +57,7 @@ public class IndexControllerTest {
         recipes.add(recipe);
 
         //when
-        when(recipeService.getAllrecipe()).thenReturn(recipes);
+        when(recipeService.getAllRecipe()).thenReturn(recipes);
 
         ArgumentCaptor<Set<Recipe>> argumentCaptor = ArgumentCaptor.forClass(Set.class);
 
@@ -66,7 +65,7 @@ public class IndexControllerTest {
         assertEquals("index", indexController.getIndexPage(model));
         //interactions with mocks
         Mockito.verify(model, times(1)).addAttribute(eq("recipes"), argumentCaptor.capture());
-        Mockito.verify(recipeService, times(1)).getAllrecipe();
+        Mockito.verify(recipeService, times(1)).getAllRecipe();
 
         assertEquals(2, argumentCaptor.getValue().size());
 

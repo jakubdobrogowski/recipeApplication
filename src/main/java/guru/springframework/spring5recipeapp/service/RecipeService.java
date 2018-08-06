@@ -8,7 +8,7 @@ import java.util.Set;
 
 public interface RecipeService {
 
-    Set<Recipe> getAllrecipe();
+    Set<Recipe> getAllRecipe();
 
     Recipe findById(Long id);
 

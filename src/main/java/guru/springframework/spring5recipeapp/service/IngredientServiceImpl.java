@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @Slf4j
@@ -87,8 +88,9 @@ public class IngredientServiceImpl implements IngredientService {
 
             if (!savedIngrdientOptional.isPresent()) {
 
-                savedIngrdientOptional = checkIdThereIsDuplicateForNewIngredient(ingredientCommand, savedRecipe); //sprawdz czy się zapiało DLA NOWEGO - BO BOWY NIE MA ID
+                savedIngrdientOptional = checkIdThereIsDuplicateForNewIngredient(ingredientCommand, savedRecipe); //sprawdz czy się zapiało DLA NOWEGO - BO NOWY NIE MA ID
             }
+
             return ingredientToIngredientCommand.convert(savedIngrdientOptional.get());
         }
 
@@ -130,12 +132,16 @@ public class IngredientServiceImpl implements IngredientService {
     }
 
     private Optional<Ingredient> checkIdThereIsDuplicateForNewIngredient(IngredientCommand ingredientCommand, Recipe savedRecipe) {
-        Optional<Ingredient> savedIngrdientOptional;
-        savedIngrdientOptional = savedRecipe.getIngredients().stream()
-                .filter(recipeIngredients -> recipeIngredients.getDescription().equals(ingredientCommand.getDescription()))
-                .filter(recipeIngredients -> recipeIngredients.getAmount().equals(ingredientCommand.getAmount()))
-                .filter(recipeIngredients -> recipeIngredients.getUom().getId().equals(ingredientCommand.getUom().getId()))
-                .findFirst();
+        Optional<Ingredient> savedIngrdientOptional = null;
+
+        Set<Ingredient> ingredients = savedRecipe.getIngredients();
+        if(ingredients.isEmpty()) {
+            savedIngrdientOptional = ingredients.stream()
+                    .filter(recipeIngredients -> recipeIngredients.getDescription().equals(ingredientCommand.getDescription()))
+                    .filter(recipeIngredients -> recipeIngredients.getAmount().equals(ingredientCommand.getAmount()))
+                    .filter(recipeIngredients -> recipeIngredients.getUom().getId().equals(ingredientCommand.getUom().getId()))
+                    .findFirst();
+        }
         return savedIngrdientOptional;
     }
 

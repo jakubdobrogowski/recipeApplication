@@ -17,6 +17,7 @@
             crossorigin="anonymous" th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
 </head>
 <body>
+<!--/*@thymesVar id="recipe" type="guru.springframework.spring5recipeapp.model.Recipe"*/-->
 <div class="container-fluid" style="margin-top: 20px">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
@@ -64,13 +65,14 @@
                                 </div>
                                 <div class="col-md-3 form-group">
                                     <label>Difficulty:</label>
-                                    <!--<select class="form-control" th:field="*{difficulty}">-->
-                                        <!--<option th:each="value : ${T(guru.springframework.spring5recipeapp.model.Difficulty).valus}"-->
-                                                <!--th:value="${valueStat.name()}"-->
-                                                <!--th:text="${valueStat.name()}"-->
-                                        <!--&gt;val</option>-->
+                                    <select class="form-control" th:field="*{difficulty}">
+                                        <option th:each="difficultyValue : ${T(guru.springframework.spring5recipeapp.model.Difficulty).values()}"
+                                                th:value="${difficultyValue.name()}"
+                                                th:text="${difficultyValue.name()}"
+                                        >val</option>
                                     </select>
-                                    <select class="form-control">
+                                    </select>
+                                    <select class="form-control" th:remove="all">
                                         <option>Easy</option>
                                         <option>Medium</option>
                                         <option>Hard</option>
