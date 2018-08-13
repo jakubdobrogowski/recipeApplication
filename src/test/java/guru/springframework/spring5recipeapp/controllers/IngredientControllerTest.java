@@ -158,10 +158,10 @@ public class IngredientControllerTest {
 
 
     @Test
-    public void testHandleBadRequestForIngredient() throws Exception {
+    public void testHandleNumberFormatExceptionForIngredient() throws Exception {
 
         //then
-        mockMvc.perform(get("/recipe/aaaaadddd/show"))
+        mockMvc.perform(get("/recipe/aaaaaa/ingredient/2/show"))
                 .andExpect(view().name("400error"))
                 .andExpect(status().isBadRequest());
     }

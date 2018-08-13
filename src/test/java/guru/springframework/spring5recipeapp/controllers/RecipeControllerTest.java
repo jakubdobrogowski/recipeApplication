@@ -96,7 +96,7 @@ public class RecipeControllerTest {
     }
 
     @Test
-    public void testHandleBadRequestForRecipe() throws Exception {
+    public void testHandleNumberFormatExceptionForRecipe() throws Exception {
 
         //then
         mockMvc.perform(get("/recipe/aaaaadddd/show"))
