@@ -44,7 +44,9 @@ public class IngredientControllerTest {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         controller = new IngredientController(recipeService, ingredientService, unitOfMeasureService);
-        mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(controller)
+                .setControllerAdvice(new ControllerExceptionHandler())
+                .build();
 
     }
 
@@ -152,5 +154,15 @@ public class IngredientControllerTest {
                 .andExpect(view().name("redirect:/recipe/33/ingredient/22/show"));
 
 
+    }
+
+
+    @Test
+    public void testHandleBadRequestForIngredient() throws Exception {
+
+        //then
+        mockMvc.perform(get("/recipe/aaaaadddd/show"))
+                .andExpect(view().name("400error"))
+                .andExpect(status().isBadRequest());
     }
 }

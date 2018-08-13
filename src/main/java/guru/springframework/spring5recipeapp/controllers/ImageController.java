@@ -61,6 +61,5 @@ public class ImageController {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
     }
 }
