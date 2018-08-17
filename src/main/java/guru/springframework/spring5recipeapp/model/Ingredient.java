@@ -1,15 +1,22 @@
 package guru.springframework.spring5recipeapp.model;
 
-import lombok.*;
+
+import guru.springframework.spring5recipeapp.infrastructure.BaseEntity;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 
-@Getter
-@Setter
-@EqualsAndHashCode(exclude = {"recipe"})
 @Entity
-public class Ingredient {
+@Setter
+@Getter
+@NoArgsConstructor
+@EqualsAndHashCode(exclude = {"recipe"})
+public class Ingredient //extends BaseEntity
+{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,10 +30,6 @@ public class Ingredient {
 
     @ManyToOne
     private Recipe recipe;
-
-    public Ingredient() {
-
-    }
 
     public Ingredient(String description, BigDecimal amount, UniteOfMesure uom) {
         this.uom = uom;

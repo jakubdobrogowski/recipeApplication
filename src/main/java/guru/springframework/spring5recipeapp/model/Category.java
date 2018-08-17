@@ -1,14 +1,18 @@
 package guru.springframework.spring5recipeapp.model;
 
+import guru.springframework.spring5recipeapp.infrastructure.BaseEntity;
 import lombok.*;
 
 import javax.persistence.*;
 import java.util.Set;
 
-@Data
-@EqualsAndHashCode(exclude = {"recipes"})
 @Entity
-public class Category {
+@Setter
+@Getter
+@NoArgsConstructor
+@EqualsAndHashCode(exclude = {"recipes"})
+public class Category //extends BaseEntity
+{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

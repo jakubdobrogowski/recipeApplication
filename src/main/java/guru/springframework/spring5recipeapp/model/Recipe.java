@@ -1,19 +1,23 @@
 package guru.springframework.spring5recipeapp.model;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import guru.springframework.spring5recipeapp.infrastructure.BaseEntity;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Data
-public class Recipe {
+@Setter
+@Getter
+@NoArgsConstructor
+public class Recipe //extends BaseEntity
+ {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String description;
     private Integer prepTime;
     private Integer cookTime;
