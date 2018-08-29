@@ -30,6 +30,7 @@ public class IngredientServiceImpl implements IngredientService {
                                  RecipeRepository recipeRepository, UnitOfMesureRepository unitOfMesureRepository) {
         this.ingredientToIngredientCommand = ingredientToIngredientCommand;
         this.ingredientCommandToIngredient = ingredientCommandToIngredient;
+        
         this.recipeRepository = recipeRepository;
         this.unitOfMesureRepository = unitOfMesureRepository;
     }
