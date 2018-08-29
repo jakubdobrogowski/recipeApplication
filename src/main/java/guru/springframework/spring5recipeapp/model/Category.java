@@ -1,6 +1,5 @@
 package guru.springframework.spring5recipeapp.model;
 
-import guru.springframework.spring5recipeapp.infrastructure.BaseEntity;
 import lombok.*;
 
 import javax.persistence.*;
