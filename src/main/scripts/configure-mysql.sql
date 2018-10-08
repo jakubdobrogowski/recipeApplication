@@ -7,7 +7,7 @@ CREATE DATABASE sfg_dev;
 CREATE DATABASE sfg_prod;
 
 #Create database service accounts
-#CREATE USER 'sfg_dev_user'@'localhost' IDENTIFIED BY 'guru';
+# CREATE USER 'sfg_dev_user'@'localhost' IDENTIFIED BY 'guru';
 #CREATE USER 'sfg_prod_user'@'localhost' IDENTIFIED BY 'guru';
 CREATE USER 'sfg_dev_user'@'%' IDENTIFIED BY 'dev.user';
 CREATE USER 'sfg_prod_user'@'%' IDENTIFIED BY 'prod.user';
